@@ -1,7 +1,6 @@
-import PostForm from "@/components/forms/PostForm"
 import UserProfileForm from "@/components/forms/UserProfileForm"
-import { FileEdit, PlusCircle } from "lucide-react"
-import React from "react"
+import { FileEdit } from "lucide-react"
+
 
 const EditProfile = () => {
   return (
