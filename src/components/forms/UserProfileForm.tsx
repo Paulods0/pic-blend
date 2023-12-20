@@ -60,6 +60,7 @@ const UserProfileForm = () => {
         <FormField
           control={form.control}
           name="bio"
+          //@ts-ignore
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label">Bio</FormLabel>

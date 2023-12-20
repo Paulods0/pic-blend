@@ -5,7 +5,7 @@ import {
   useGetUserLikedPosts,
   useGetUserPosts,
 } from "@/lib/react-query/queriesAndMutations"
-import { HeartIcon, Image, FileEdit } from "lucide-react"
+import { HeartIcon, Image } from "lucide-react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -13,10 +13,9 @@ const Profile = () => {
   const { user } = useUserContext()
   const [contentToShow, setContentToShow] = useState<"posts" | "likes">("posts")
 
-  const { data: posts, isPending: isLoadingPosts } = useGetUserPosts(user.id)
+  const { data: posts } = useGetUserPosts(user.id)
 
-  const { data: likedPosts, isPending: isLikedPostsLoading } =
-    useGetUserLikedPosts(user.id)
+  const { data: likedPosts } = useGetUserLikedPosts(user.id)
 
   if (!posts || !likedPosts) return <Loader />
 
@@ -43,7 +42,9 @@ const Profile = () => {
 
                 <div className="flex flex-col">
                   <div>
-                    <p className="text-2xl lg:text-4xl font-semibold">{user.name}</p>
+                    <p className="text-2xl lg:text-4xl font-semibold">
+                      {user.name}
+                    </p>
                     <p className="text-light-3">{user.email}</p>
                   </div>
                   <div className="flex space-x-3 mt-6 self-start">
