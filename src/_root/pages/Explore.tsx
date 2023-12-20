@@ -1,0 +1,109 @@
+"use client"
+
+import GridPostList from "@/components/shared/GridPostList"
+import Loader from "@/components/shared/Loader"
+import SearchResults from "@/components/shared/SearchResults"
+import { Input } from "@/components/ui/input"
+import useDebounce from "@/hooks/useDebounce"
+import {
+  useGetPosts,
+  useSearchPosts,
+} from "@/lib/react-query/queriesAndMutations"
+import { ListFilterIcon, SearchIcon } from "lucide-react"
+import { useState, useEffect } from "react"
+import { useInView } from "react-intersection-observer"
+
+const Explore = () => {
+  const { ref, inView } = useInView()
+
+  const { data: posts, fetchNextPage, hasNextPage } = useGetPosts()
+
+  const [searchValue, setSearchValue] = useState("")
+  const debouncedValue = useDebounce(searchValue, 500)
+  const { data: searchedPosts, isFetching: isSearchFetching } =
+    useSearchPosts(debouncedValue)
+
+  useEffect(() => {
+    if (inView && !searchValue) fetchNextPage()
+  }, [inView, searchValue])
+  // console.log("Explore ~ posts", posts)
+  if (!posts) {
+    return (
+      <div className="explore-container">
+        <div className="explore-inner_container">
+          <h2 className="h3-bold md:h2-bold w-full">Search Posts</h2>
+          <div className="flex gap-1 items-center px-4 w-full rounded-lg bg-light-2">
+            <SearchIcon size={24} color="grey" />
+            <Input
+              placeholder="Search"
+              type="text"
+              className="explore-search"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </div>
+        </div>
+        <Loader />
+      </div>
+    )
+  }
+
+  const shouldShowSearchResults = searchValue !== ""
+  const shouldShowPosts =
+    !shouldShowSearchResults &&
+    posts?.pages.every((item) => item?.documents.length === 0)
+
+  return (
+    <div className="explore-container">
+      <div className="explore-inner_container">
+        <h2 className="h3-bold md:h2-bold w-full">Search Posts</h2>
+        <div className="flex gap-1 items-center px-4 w-full rounded-lg bg-light-2">
+          <SearchIcon size={24} color="grey" />
+          <Input
+            placeholder="Search"
+            type="text"
+            className="explore-search"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="flex-between w-full max-w-5xl mt-16 mb-7">
+        <h3 className="body-bold md:h3-bold">Popular Today</h3>
+
+        <div className="flex-center gap-3 bg-pink-500 rounded-xl px-4 py-2 cursor-pointer">
+          <p className="small-medium md:base-medium text-dark-2">All</p>
+          <div>
+            <ListFilterIcon size={24} color="black" />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap gap-9 max-w-5xl">
+        {shouldShowSearchResults ? (
+          <SearchResults
+            isSearchFetching={isSearchFetching}
+            //@ts-ignore
+            searchedPosts={searchedPosts}
+          />
+        ) : shouldShowPosts ? (
+          <p className="text-light-4 mt-10 text-center w-full">End of posts</p>
+        ) : (
+          posts.pages.map((item, index) => (
+            //@ts-ignore
+            <GridPostList key={`page-${index}`} posts={item?.documents} />
+          ))
+        )}
+      </div>
+
+      {hasNextPage && !searchValue && (
+        <div ref={ref} className="mt-10">
+          <Loader />
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default Explore
