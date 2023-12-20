@@ -1,5 +1,4 @@
 import { Models } from "appwrite"
-import React from "react"
 import GridPostList from "./GridPostList"
 import Loader from "./Loader"
 

@@ -1,6 +1,6 @@
 import { Models } from "appwrite"
 import { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
+// import { useLocation } from "react-router-dom"
 
 import { checkIsLiked } from "@/lib/utils"
 import {
@@ -23,7 +23,7 @@ const PostStats = ({
   userId,
   changeNumberColor = false,
 }: PostStatsProps) => {
-  const location = useLocation()
+  // const location = useLocation()
   const likesList = post?.likes.map((user: Models.Document) => user.$id)
 
   const [likes, setLikes] = useState<string[]>(likesList)
