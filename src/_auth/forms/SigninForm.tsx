@@ -21,6 +21,7 @@ import { useUserContext } from "@/context/AuthContext"
 
 import { useToast } from "@/components/ui/use-toast"
 import Loader from "@/components/shared/Loader"
+import Logo from "@/components/shared/Logo"
 
 const SigninForm = () => {
   const { toast } = useToast()
@@ -65,12 +66,8 @@ const SigninForm = () => {
   return (
     <Form {...form}>
       <div className="w-full lg:w-fit md:w-fit flex-center flex-col shadow-lg p-10 rounded-lg">
-        <div className="relative w-36 h-16">
-          <img
-            src="/public/assets/icons/PicBlend.svg"
-            alt=""
-            className="absolute inset-0 h-full w-full"
-          />
+        <div className="hidden xl:block h-1/2">
+          <Logo large={false} />
         </div>
         <h2 className="text-lg md:h2-bold">Log in to your account</h2>
         <p className="text-light-3 small-medium md-base-regular">

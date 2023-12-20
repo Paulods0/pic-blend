@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../ui/button"
 import { LogOut } from "lucide-react"
+import Logo from "./Logo"
 LogOut
 
 const LeftSidebar = () => {
@@ -24,13 +25,16 @@ const LeftSidebar = () => {
       <div className="flex flex-col gap-8">
         <Link to="/" className="flex gap-3 items-center">
           {/* <h1 className="text-3xl font-bold text-pink-500 cursive">PicBlend</h1> */}
-          <div className="relative w-36 h-16">
+          <div>
+            <Logo large={false} />
+          </div>
+          {/* <div className="relative w-36 h-16">
             <img
               src="/public/assets/icons/PicBlend.svg"
               alt=""
               className="absolute inset-0 h-full w-full"
             />
-          </div>
+          </div> */}
         </Link>
         <Link to={`/profile/${user.id}`} className="flex gap-2 items-center">
           <img

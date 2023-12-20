@@ -22,6 +22,7 @@ import {
   useSignInAccount,
 } from "@/lib/react-query/queriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
+import Logo from "@/components/shared/Logo"
 
 const SignupForm = () => {
   const { toast } = useToast()
@@ -74,12 +75,8 @@ const SignupForm = () => {
   return (
     <Form {...form}>
       <div className="w-full lg:w-fit md:w-fit flex-center shadow-lg px-6 py-4 rounded-lg flex-col">
-        <div className="relative w-36 h-16">
-          <img
-            src="/public/assets/icons/PicBlend.svg"
-            alt=""
-            className="absolute inset-0 h-full w-full"
-          />
+        <div className="hidden xl:block h-1/2">
+          <Logo large={false} />
         </div>
         <h2 className="h3-bold md:h2-bold">Create a new account</h2>
         <p className="text-light-3 small-medium md-base-regular">
