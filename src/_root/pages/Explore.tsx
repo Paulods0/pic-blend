@@ -1,5 +1,3 @@
-"use client"
-
 import GridPostList from "@/components/shared/GridPostList"
 import Loader from "@/components/shared/Loader"
 import SearchResults from "@/components/shared/SearchResults"

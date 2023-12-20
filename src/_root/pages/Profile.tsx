@@ -1,4 +1,3 @@
-"use client"
 import Loader from "@/components/shared/Loader"
 import { useUserContext } from "@/context/AuthContext"
 import {
